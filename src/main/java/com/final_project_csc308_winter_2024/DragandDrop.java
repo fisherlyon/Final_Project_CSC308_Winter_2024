@@ -21,7 +21,6 @@ public class DragandDrop extends JPanel implements MouseListener, MouseMotionLis
         initializeCursors();
         addMouseListener(this);
         addMouseMotionListener(this);
-        playMusic("sad-piano-background.mp3");
     }
 
     private void initializeCursors() {
@@ -33,29 +32,13 @@ public class DragandDrop extends JPanel implements MouseListener, MouseMotionLis
             Image grabbedHandImage = ImageIO.read(getClass().getResourceAsStream("/grabbed_hand.png"));
             grabbedHandCursor = toolkit.createCustomCursor(grabbedHandImage, new Point(0, 0), "Grabbed Hand Cursor");
 
+            // Initially set the cursor to open hand
             setCursor(openHandCursor);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void playMusic(String resourcePath) {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    // Get the resource as a stream
-                    InputStream inputStream = getClass().getResourceAsStream(resourcePath);
-                    if (inputStream == null) {
-                        throw new IllegalArgumentException("Resource not found: " + resourcePath);
-                    }
-                    Player playMP3 = new Player(inputStream);
-                    playMP3.play();
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
-                }
-            }
-        }).start();
-    }
 
 
     @Override
