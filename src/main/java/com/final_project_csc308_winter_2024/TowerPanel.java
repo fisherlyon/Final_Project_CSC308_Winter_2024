@@ -17,9 +17,9 @@ public class TowerPanel extends JPanel implements PropertyChangeListener {
         super.paintComponent(g);
         Tower[] towers = Repository.getInstance().getTowers();
         for (int i = 0; i < 3; i++) {
-            towers[i].draw(g, i);
+            towers[i].draw(g);
             for(Disk disk : towers[i].getDisks()){
-                disk.draw(g, i);
+                disk.draw(g);
             }
         }
     }
