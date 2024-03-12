@@ -6,6 +6,8 @@ public class Disk {
     private int width;
     private Color color;
     private Tower tower;
+    private int x;
+    private int y;
 
     public Disk(int width, Color color) {
         this.width = width;
@@ -42,5 +44,21 @@ public class Disk {
             g.setColor(color);
             g.fillRect(x, y, width, tower.getHeight() / tower.getDisks().size());
         }
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
