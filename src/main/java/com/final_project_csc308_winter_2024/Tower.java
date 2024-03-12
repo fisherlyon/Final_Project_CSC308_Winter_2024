@@ -1,11 +1,10 @@
 package com.final_project_csc308_winter_2024;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 public class Tower {
-    private List<Disk> disks;
+    private Stack<Disk> disks;
     private int x, y; // Position of the tower
     private int width, height; // Dimensions of the tower
     private static final Color TOWER_COLOR = Color.GRAY;
@@ -15,11 +14,11 @@ public class Tower {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.disks = new ArrayList<>();
+        this.disks = new Stack<>();
     }
 
     public void addDisk(Disk disk) {
-        disks.add(disk);
+        disks.push(disk);
         disk.setTower(this);
     }
 
@@ -27,7 +26,7 @@ public class Tower {
         disks.remove(disk);
     }
 
-    public List<Disk> getDisks() {
+    public Stack<Disk> getDisks() {
         return disks;
     }
 
@@ -45,14 +44,14 @@ public class Tower {
 
     public Disk removeTopDisk() {
         if (!disks.isEmpty()) {
-            return disks.remove(disks.size() - 1);
+            return disks.pop();
         }
         return null; // Tower is empty
     }
 
     public Disk getTopDisk() {
         if (!disks.isEmpty()) {
-            return disks.get(disks.size() - 1);
+            return disks.peek();
         }
         return null; // Tower is empty
     }
@@ -68,4 +67,3 @@ public class Tower {
         }
     }
 }
-
