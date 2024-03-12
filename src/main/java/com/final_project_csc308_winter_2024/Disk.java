@@ -6,10 +6,18 @@ public class Disk {
     private int width;
     private Color color;
     private Tower tower;
+    private int x, y;
+    private int weight;
 
-    public Disk(int width, Color color) {
+
+    public Disk(int width, Color color, int weight) {
         this.width = width;
         this.color = color;
+        this.weight = weight;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 
     public int getWidth() {
@@ -28,6 +36,22 @@ public class Disk {
         this.tower = tower;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public void removeFromTower() {
         if (tower != null) {
             tower.removeDisk(this);
@@ -37,8 +61,11 @@ public class Disk {
 
     public void draw(Graphics g) {
         if (tower != null) {
-            int x = tower.getX() - width / 2;
-            int y = tower.getY() - tower.getHeight() / 2 - tower.getDisks().indexOf(this) * (tower.getHeight() / tower.getDisks().size());
+            int towerX = tower.getX();
+            int towerY = tower.getY();
+            int diskY = towerY - tower.getHeight() / 2 - tower.getDisks().indexOf(this) * (tower.getHeight() / tower.getDisks().size());
+            x = towerX - width / 2;
+            y = diskY;
             g.setColor(color);
             g.fillRect(x, y, width, tower.getHeight() / tower.getDisks().size());
         }
