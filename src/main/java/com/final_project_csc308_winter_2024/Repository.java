@@ -13,7 +13,7 @@ public class Repository extends PropertyChangeSupport {
         super(new Object());
     }
 
-    public static Repository getInstance(){
+    public static Repository getInstance() {
         if (instance == null){
             instance = new Repository();
         }
@@ -22,10 +22,10 @@ public class Repository extends PropertyChangeSupport {
 
     public void move(int old_tower, int new_tower) {
         counter += 1;
-        Disk disk = towers[old_tower].peek();
-        if (disk.getSize() < towers[new_tower].peek().getSize()) {
-            towers[old_tower].pop();
-            towers[new_tower].push(disk);
+        Disk disk = towers[old_tower].getDisks().peek();
+        if (disk.getWeight() < towers[new_tower].getDisks().peek().getWeight()) {
+            towers[old_tower].getDisks().pop();
+            towers[new_tower].getDisks().push(disk);
             firePropertyChange("counter", null, counter);
             firePropertyChange("towers", null, towers);
         }
