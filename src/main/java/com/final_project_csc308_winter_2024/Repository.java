@@ -1,13 +1,13 @@
 package com.final_project_csc308_winter_2024;
 
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 
 public class Repository extends PropertyChangeSupport {
 
     private static Repository instance = null;
     private int counter = 0;
     private Tower[] towers = new Tower[3];
+    private int[] nextStep = new int[3]; // move disk # from tower # to tower #
 
     private Repository() {
         super(new Object());
@@ -37,5 +37,9 @@ public class Repository extends PropertyChangeSupport {
 
     public Tower[] getTowers() {
         return towers;
+    }
+
+    public int[] getNextStep() {
+        return nextStep;
     }
 }
