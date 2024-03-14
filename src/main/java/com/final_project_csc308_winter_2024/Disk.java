@@ -1,8 +1,9 @@
 package com.final_project_csc308_winter_2024;
 
+import javax.swing.*;
 import java.awt.*;
 
-public class Disk {
+public class Disk extends JPanel {
     private int width;
     private Color color;
     private Tower tower;

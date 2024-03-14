@@ -1,3 +1,5 @@
+package com.final_project_csc308_winter_2024;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,20 +9,19 @@ import javazoom.jl.player.Player;
 
 import java.io.InputStream;
 
-public class DragandDrop extends JPanel implements MouseListener, MouseMotionListener {
+public class DragandDrop implements MouseListener, MouseMotionListener {
     private Cursor openHandCursor;
     private Cursor grabbedHandCursor;
-    private int x, y; // position of shape
     private int offsetX, offsetY;
     private boolean dragging = false;
+    private Disk disk;
 
 
-    public DragandDrop() {
-        x = 200;
-        y = 200;
+    public DragandDrop(Disk disk) {
+        this.disk = disk;
         initializeCursors();
-        addMouseListener(this);
-        addMouseMotionListener(this);
+        disk.addMouseListener(this);
+        disk.addMouseMotionListener(this);
     }
 
     private void initializeCursors() {
@@ -33,48 +34,39 @@ public class DragandDrop extends JPanel implements MouseListener, MouseMotionLis
             grabbedHandCursor = toolkit.createCustomCursor(grabbedHandImage, new Point(0, 0), "Grabbed Hand Cursor");
 
             // Initially set the cursor to open hand
-            setCursor(openHandCursor);
+            disk.setCursor(openHandCursor);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-
-    @Override
-    protected void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
-        graphics.setColor(Color.cyan);
-        graphics.fillRect(x, y, 100, 100);
-    }
-
     @Override
     public void mousePressed(MouseEvent press) {
         int mouse_x = press.getX();
         int mouse_y = press.getY();
-        if (mouse_x > x && mouse_x < x + 100 && mouse_y > y && mouse_y < y + 100) {
+        if (mouse_x > disk.getX() && mouse_x < disk.getX() + 100 && mouse_y > disk.getY() && mouse_y < disk.getY() + 100) {
             dragging = true;
-            offsetX = mouse_x - x;
-            offsetY = mouse_y - y;
+            offsetX = mouse_x - disk.getX();
+            offsetY = mouse_y - disk.getY();
         }
 
         if (press.getButton() == MouseEvent.BUTTON1) {
-            setCursor(grabbedHandCursor); // button 1 is left click on mouse
+            disk.setCursor(grabbedHandCursor); // button 1 is left click on mouse
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent stop) {
         dragging = false;
-        setCursor(openHandCursor); // true and false for hand open or close
+        disk.setCursor(openHandCursor); // true and false for hand open or close
     }
 
     @Override
     public void mouseDragged(MouseEvent drag) {
         if (dragging) {
-            x = drag.getX() - offsetX;
-            y = drag.getY() - offsetY;
-            repaint();
+            disk.setX(drag.getX() - offsetX);
+            disk.setY(drag.getY() - offsetY);
         }
     }
 
