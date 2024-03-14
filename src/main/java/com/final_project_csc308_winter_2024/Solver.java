@@ -2,15 +2,24 @@ package com.final_project_csc308_winter_2024;
 import java.util.Stack;
 
 public class Solver {
-    public static void hanoi(Stack<Integer> from, Stack<Integer> to, Stack<Integer> buf, int nmv) {
-        if (nmv > 1){
+    private Repository repository; // Reference to the Repository
+
+    public Solver(Repository repository) {
+        this.repository = repository;
+    }
+
+    public void hanoi(Stack<Integer> from, Stack<Integer> to, Stack<Integer> buf, int nmv) {
+        if (nmv > 1) {
             hanoi(from, buf, to, nmv - 1);
             moveDisk(from, to);
+            repository.move(from.peek(), to.peek()); // Inform Repository about the move
             hanoi(buf, to, from, nmv - 1);
         } else {
             moveDisk(from, to);
+            repository.move(from.peek(), to.peek()); // Inform Repository about the move
         }
     }
+
     public static void moveDisk(Stack<Integer> source, Stack<Integer> target) {
         int disk = source.pop();
         target.push(disk);
