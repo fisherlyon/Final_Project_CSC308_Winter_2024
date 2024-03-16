@@ -2,6 +2,8 @@ package com.final_project_csc308_winter_2024;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TutorPanel extends JPanel {
     @Override
@@ -12,9 +14,27 @@ public class TutorPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Tutor tutor = new Tutor();
+        // Use the existing 'tutor' instance instead of creating a new one.
         tutor.draw(g);
     }
 
+    //DU Tran stuff to click the tutor for help
+    private Tutor tutor;
+    private final Rectangle tutorBounds = new Rectangle(400, 100, 350, 400);
 
+    public TutorPanel() {
+        this.tutor = new Tutor(); // Initialize the tutor once here
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (tutorBounds.contains(e.getPoint())) {
+                    tutor.setMessage("I'm Javier, your tutor"); // Set the message
+                    System.out.println("Tutor image clicked! Setting message.");
+                    revalidate();
+                    repaint();
+                }
+            }
+        });
+    }
+    //End of Du
 }
