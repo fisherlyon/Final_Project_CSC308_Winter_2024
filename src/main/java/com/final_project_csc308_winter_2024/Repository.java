@@ -52,6 +52,7 @@ public class Repository extends PropertyChangeSupport {
 
     public void restart() {
         initializeGame();
+        gameOver = 0;
     }
 
     public void changeBestTime(long time) {
