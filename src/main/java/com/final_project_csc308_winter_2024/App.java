@@ -2,6 +2,7 @@ package com.final_project_csc308_winter_2024;
 
 import com.sun.tools.javac.Main;
 
+import javax.imageio.plugins.tiff.TIFFDirectory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,6 +34,9 @@ public class App extends JFrame implements ActionListener {
         // Create TowerPanel and TutorPanel
         TowerPanel towerPanel = new TowerPanel();
         TutorPanel tutorPanel = new TutorPanel();
+        TimeTrialPanel timeTrialPanel = new TimeTrialPanel(new TimeTrial());
+        JPanel rightPanel = new JPanel();
+
         tutorPanel.setBackground(Color.RED);
         towerPanel.setBackground(Color.WHITE);
 
@@ -41,20 +45,13 @@ public class App extends JFrame implements ActionListener {
 //        towerPanel.add(drag);
 //        getContentPane().add(disk); // need this
 
-        // Set layout for the App frame
-        setLayout(new GridLayout(1, 2)); // 1 row, 2 columns
+        rightPanel.setLayout(new GridLayout(2, 1)); // 1 row, 2 columns
+        rightPanel.add(tutorPanel);
+        rightPanel.add(timeTrialPanel);
 
-        // Add TowerPanel to the left side (first column)
-//        JPanel leftPanel = new JPanel(new BorderLayout());
-//        leftPanel.add(towerPanel, BorderLayout.CENTER);
-//        add(leftPanel);
-
+        setLayout(new GridLayout(1, 2));
         add(towerPanel);
-
-        // Add TutorPanel to the right side (second column)
-        add(tutorPanel);
-
-        System.out.println("Hello World!");
+        add(rightPanel);
     }
 
     public static void main( String[] args ) {
