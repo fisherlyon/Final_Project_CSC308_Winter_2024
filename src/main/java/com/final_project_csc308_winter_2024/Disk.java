@@ -3,16 +3,18 @@ package com.final_project_csc308_winter_2024;
 import javax.swing.*;
 import java.awt.*;
 
-public class Disk extends JPanel {
+public class Disk{
     private int width;
+    private int height;
     private Color color;
     private Tower tower;
     private int x, y;
     private int weight;
 
 
-    public Disk(int width, Color color, int weight) {
+    public Disk(int width, int height, Color color, int weight) {
         this.width = width;
+        this.height = height;
         this.color = color;
         this.weight = weight;
     }
@@ -23,6 +25,9 @@ public class Disk extends JPanel {
 
     public int getWidth() {
         return width;
+    }
+    public int getHeight() {
+        return height;
     }
 
     public Color getColor() {
@@ -60,15 +65,26 @@ public class Disk extends JPanel {
         }
     }
 
+
     public void draw(Graphics g) {
         if (tower != null) {
             int towerX = tower.getX();
             int towerY = tower.getY();
-            int diskY = towerY - tower.getHeight() / 2 - tower.getDisks().indexOf(this) * (tower.getHeight() / tower.getDisks().size());
+            int diskY = towerY - height / 2 - tower.getDisks().indexOf(this) * (height / tower.getDisks().size());
             x = towerX - width / 2;
             y = diskY;
             g.setColor(color);
-            g.fillRect(x, y, width, tower.getHeight() / tower.getDisks().size());
+            g.fillRect(x, y, width, height / tower.getDisks().size());
         }
     }
+
+    public boolean contains(int x, int y) {
+        return x >= getX() && x <= (getX() + width) &&
+                y >= getY() && y <= (getY() + height);
+    }
+
+
+
+
+
 }

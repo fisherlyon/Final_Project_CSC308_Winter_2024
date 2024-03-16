@@ -42,19 +42,19 @@ public class Tower {
         return height;
     }
 
-    public Disk removeTopDisk() {
-        if (!disks.isEmpty()) {
-            return disks.pop();
-        }
-        return null; // Tower is empty
-    }
-
     public Disk getTopDisk() {
         if (!disks.isEmpty()) {
             return disks.peek();
         }
-        return null; // Tower is empty
+        return null;
     }
+
+    public void removeTopDisk() {
+        if (!disks.isEmpty()) {
+            disks.pop();
+        }
+    }
+
 
     public void draw(Graphics g) {
         // Draw tower
@@ -63,7 +63,19 @@ public class Tower {
 
         // Draw disks
         for (Disk disk : disks) {
-            disk.draw(g);
+            if (disk != TowerPanel.draggingDisk) {
+                disk.draw(g);
+            }
         }
     }
+
+
+
+    public boolean canAddDisk(Disk disk) {
+        return disks.isEmpty() || disk.getWeight() < getTopDisk().getWeight();
+    }
+
+
+
+
 }
