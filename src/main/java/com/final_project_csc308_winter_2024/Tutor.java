@@ -9,7 +9,7 @@ public class Tutor{
 
     public Tutor() {
         // Load the image. Du Tran
-        ImageIcon ii = new ImageIcon("/Users/cloudyfat/final_project_csc308_winter_2024/src/main/resources/tutor1.png");
+        ImageIcon ii = new ImageIcon("src/main/resources/tutor1.png");
         tutorImage = ii.getImage();
         // End of Du
         //System.out.println("Hello From Tutor!");

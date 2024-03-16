@@ -111,10 +111,7 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
             Tower nearestTower = findNearestTower(release.getX());
             if (nearestTower.canAddDisk(draggingDisk)) {
                 Repository.getInstance().move(draggingDisk.getTower().getID(), nearestTower.getID());
-            } else {
-                // If it's an illegal move, return the disk to its original tower
-                draggingDisk.getTower().addDisk(draggingDisk);
-            }
+            } 
         }
         dragging = false;
         draggingDisk = null; // Clear the reference to the dragging disk
