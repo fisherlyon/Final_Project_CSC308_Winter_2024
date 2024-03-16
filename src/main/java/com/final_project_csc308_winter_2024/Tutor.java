@@ -36,7 +36,7 @@ public class Tutor{
         // Draw the message text if it's not empty
         if (!message.isEmpty()) {
             g2d.setColor(Color.BLACK);
-            g2d.setFont(new Font("Arial", Font.BOLD, 20));
+            g2d.setFont(new Font("Arial", Font.BOLD, 16));
             FontMetrics fm = g2d.getFontMetrics();
             int textWidth = fm.stringWidth(message);
             int x = 100 + (400 - textWidth) / 2;
