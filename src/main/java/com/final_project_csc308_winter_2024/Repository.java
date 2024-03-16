@@ -1,6 +1,7 @@
 package com.final_project_csc308_winter_2024;
 
 import java.beans.PropertyChangeSupport;
+import java.awt.*;
 
 public class Repository extends PropertyChangeSupport {
 
@@ -9,9 +10,11 @@ public class Repository extends PropertyChangeSupport {
     private Tower[] towers = new Tower[3];
     private int[] nextStep = new int[3]; // move disk # from tower # to tower #
     private long bestTime = 0;
+    private int gameOver = 0;
 
     private Repository() {
         super(new Object());
+        initializeGame();
     }
 
     public static Repository getInstance() {
@@ -21,15 +24,34 @@ public class Repository extends PropertyChangeSupport {
         return instance;
     }
 
+    private void initializeGame() {
+        towers[0] = new Tower(200, 300, 20, 200, 0);
+        towers[1] = new Tower(400, 300, 20, 200, 1);
+        towers[2] = new Tower(600, 300, 20, 200, 2);
+
+        Disk disk = new Disk(100, 40, Color.BLUE, 3);
+        Disk disk1 = new Disk(80, 40, Color.GREEN, 2);
+        Disk disk2 = new Disk(60, 40, Color.YELLOW, 1);
+
+        towers[0].addDisk(disk);
+        towers[0].addDisk(disk1);
+        towers[0].addDisk(disk2);
+    }
+
     public void move(int old_tower, int new_tower) {
         counter += 1;
-        Disk disk = towers[old_tower].getDisks().peek();
-        if (disk.getWeight() < towers[new_tower].getDisks().peek().getWeight()) {
-            towers[old_tower].getDisks().pop();
-            towers[new_tower].getDisks().push(disk);
-            firePropertyChange("counter", null, counter);
-            firePropertyChange("towers", null, towers);
+        towers[new_tower].addDisk(towers[old_tower].removeTopDisk());
+        firePropertyChange("counter", null, counter);
+        firePropertyChange("towers", null, towers);
+
+        if (towers[0].getDisks().isEmpty() && towers[1].getDisks().isEmpty()) {
+            gameOver = 1;
+            firePropertyChange("gameOver", null, gameOver);
         }
+    }
+
+    public void restart() {
+        initializeGame();
     }
 
     public void changeBestTime(long time) {

@@ -9,21 +9,21 @@ import java.awt.event.MouseMotionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class TowerPanel extends JPanel implements PropertyChangeListener, MouseListener, MouseMotionListener {
-
 
     public TowerPanel(){
         initializeCursors();
         addMouseListener(this);
         addMouseMotionListener(this);
     }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         repaint();
 
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -46,17 +46,12 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
         }
     }
 
-
-
-
-
     public static Disk draggingDisk;
     private Cursor openHandCursor;
     private Cursor grabbedHandCursor;
     private int offsetX, offsetY;
     private boolean dragging = false;
     private int mouseX, mouseY; // Last known mouse coordinates
-
 
     private void initializeCursors() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -74,8 +69,6 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
         }
     }
 
-
-
     @Override
     public void mousePressed(MouseEvent press) {
         mouseX = press.getX();
@@ -89,7 +82,6 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
                 offsetX = mouseX - draggingDisk.getX();
                 offsetY = mouseY - draggingDisk.getY();
                 dragging = true;
-                tower.removeTopDisk(); // Ensure this doesn't throw an exception if the disk isn't there.
                 setCursor(grabbedHandCursor);
                 break;
             }
@@ -112,14 +104,13 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
         return nearestTower;
     }
 
-
     @Override
     public void mouseReleased(MouseEvent release) {
         if (draggingDisk != null) {
             // Determine which tower the disk should be dropped onto
             Tower nearestTower = findNearestTower(release.getX());
             if (nearestTower.canAddDisk(draggingDisk)) {
-                nearestTower.addDisk(draggingDisk);
+                Repository.getInstance().move(draggingDisk.getTower().getID(), nearestTower.getID());
             } else {
                 // If it's an illegal move, return the disk to its original tower
                 draggingDisk.getTower().addDisk(draggingDisk);
@@ -130,7 +121,6 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
         setCursor(openHandCursor);
         repaint(); // Repaint to show the disk in its new position
     }
-
 
     // MouseMotionListener methods
     @Override
@@ -143,9 +133,6 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
             repaint(); // Repaint the panel to update the disk's position
         }
     }
-
-
-
 
     @Override
     public void mouseClicked(MouseEvent e) {}

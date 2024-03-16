@@ -13,6 +13,7 @@ public class TimeTrialPanel extends JPanel implements PropertyChangeListener {
     private TimeTrial timeTrial;
     private JLabel timeLabel;
     private JLabel bestTimeLabel;
+    private long time;
 
     /**
      * Constructs a TimeTrialPanel with the specified TimeTrial instance.
@@ -67,9 +68,25 @@ public class TimeTrialPanel extends JPanel implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
         if (evt.getPropertyName().equals("bestTime")) {
             long bestTime = (long) evt.getNewValue();
             bestTimeLabel.setText("Best Time: " + Repository.getInstance().formatElapsedTime(bestTime));
+        }
+
+        if (evt.getPropertyName().equals("counter")) {
+            int counter = (int) evt.getNewValue();
+            if (counter == 1) {
+                timeTrial.restart();
+            }
+        }
+
+        if (evt.getPropertyName().equals("gameOver")) {
+            int gameOver = (int) evt.getNewValue();
+            if (gameOver == 1) {
+                time = timeTrial.stop();
+                Repository.getInstance().changeBestTime(time);
+            }
         }
     }
 }

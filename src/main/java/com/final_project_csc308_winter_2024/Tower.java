@@ -55,12 +55,12 @@ public class Tower {
         return null;
     }
 
-    public void removeTopDisk() {
+    public Disk removeTopDisk() {
         if (!disks.isEmpty()) {
-            disks.pop();
+            return disks.pop();
         }
+        return null;
     }
-
 
     public void draw(Graphics g) {
         // Draw tower
@@ -75,13 +75,7 @@ public class Tower {
         }
     }
 
-
-
     public boolean canAddDisk(Disk disk) {
         return disks.isEmpty() || disk.getWeight() < getTopDisk().getWeight();
     }
-
-
-
-
 }
