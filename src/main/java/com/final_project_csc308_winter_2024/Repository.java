@@ -36,7 +36,6 @@ public class Repository extends PropertyChangeSupport {
         if (bestTime == 0 || time < bestTime) {
             bestTime = time;
             firePropertyChange("bestTime", null, bestTime);
-            System.out.println(bestTime);
         }
     }
 
