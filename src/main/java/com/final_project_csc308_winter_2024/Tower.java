@@ -8,13 +8,15 @@ public class Tower {
     private int x, y; // Position of the tower
     private int width, height; // Dimensions of the tower
     private static final Color TOWER_COLOR = Color.GRAY;
+    private int id;
 
-    public Tower(int x, int y, int width, int height) {
+    public Tower(int x, int y, int width, int height, int id) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.disks = new Stack<>();
+        this.id = id;
     }
 
     public void addDisk(Disk disk) {
@@ -40,6 +42,10 @@ public class Tower {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getID() {
+        return id;
     }
 
     public Disk getTopDisk() {
