@@ -15,4 +15,6 @@ public class TutorPanel extends JPanel {
         Tutor tutor = new Tutor();
         tutor.draw(g);
     }
+
+
 }
