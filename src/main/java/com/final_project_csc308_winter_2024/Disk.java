@@ -1,6 +1,5 @@
 package com.final_project_csc308_winter_2024;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Disk{
@@ -10,7 +9,6 @@ public class Disk{
     private Tower tower;
     private int x, y;
     private int weight;
-
 
     public Disk(int width, int height, Color color, int weight) {
         this.width = width;
@@ -65,7 +63,6 @@ public class Disk{
         }
     }
 
-
     public void draw(Graphics g) {
         if (tower != null) {
             int towerX = tower.getX();
@@ -82,9 +79,4 @@ public class Disk{
         return x >= getX() && x <= (getX() + width) &&
                 y >= getY() && y <= (getY() + height);
     }
-
-
-
-
-
 }

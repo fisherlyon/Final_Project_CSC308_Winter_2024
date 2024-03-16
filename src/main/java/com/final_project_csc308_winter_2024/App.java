@@ -1,8 +1,5 @@
 package com.final_project_csc308_winter_2024;
 
-import com.sun.tools.javac.Main;
-
-import javax.imageio.plugins.tiff.TIFFDirectory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,18 +15,6 @@ public class App extends JFrame implements ActionListener {
 
         setTitle("Tower of Hanoi");
         setLocation(100, 100);
-
-        Tower tower = Repository.getInstance().getTowers()[0] = new Tower(200, 300, 20, 200);
-        Tower tower1 = Repository.getInstance().getTowers()[1] = new Tower(400, 300, 20, 200);
-        Tower tower2 = Repository.getInstance().getTowers()[2] = new Tower(600, 300, 20, 200);
-
-        Disk disk = new Disk(100, 80, Color.BLUE, 3);
-        Disk disk1 = new Disk(80, 60, Color.GREEN, 2);
-        Disk disk2 = new Disk(60, 40, Color.YELLOW, 1);
-
-        tower.addDisk(disk);
-        tower.addDisk(disk1);
-        tower.addDisk(disk2);
 
         // Create TowerPanel and TutorPanel
         TowerPanel towerPanel = new TowerPanel();
