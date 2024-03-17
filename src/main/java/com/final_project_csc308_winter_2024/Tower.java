@@ -24,6 +24,11 @@ public class Tower {
         disk.setTower(this);
     }
 
+    @Override
+    public String toString() {
+        return "Tower #" + id;
+    }
+
     public void removeDisk(Disk disk) {
         disks.remove(disk);
     }
@@ -39,6 +44,7 @@ public class Tower {
     public int getY() {
         return y;
     }
+    public int getWidth(){return width;}
 
     public int getHeight() {
         return height;

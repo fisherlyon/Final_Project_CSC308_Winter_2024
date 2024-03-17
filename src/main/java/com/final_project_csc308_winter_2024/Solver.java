@@ -1,28 +1,49 @@
 package com.final_project_csc308_winter_2024;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Solver {
-    private Repository repository; // Reference to the Repository
+    private Repository repository;
+    private List<String> moves; // List to store move instructions
+    private int currentMoveIndex = 0; //track the current move
 
     public Solver(Repository repository) {
         this.repository = repository;
+        this.moves = new ArrayList<>(); // Initialize the moves list
     }
 
-    public void hanoi(Tower from, Tower to, Tower buf, int nmv) {
-        if (nmv > 1) {
-            hanoi(from, buf, to, nmv - 1);
-            moveDisk(from, to);
-            repository.move(from.getID(), to.getID()); // Inform Repository about the move
-            hanoi(buf, to, from, nmv - 1);
-        } else {
-            moveDisk(from, to);
-            repository.move(from.getID(), to.getID()); // Inform Repository about the move
+    public void hanoi(int from, int to, int buf, int nmv) {
+        if (nmv > 0) {
+            hanoi(from, buf, to, nmv-1);
+            moves.add("Move disk " + nmv + " from Tower " + from + " to Tower " + to);
+            hanoi(buf, to, from, nmv-1);
         }
     }
 
-    public static void moveDisk(Tower source, Tower target) {
-        Disk disk = source.getTopDisk();
-        target.addDisk(disk);
-        System.out.println("Move disk " + disk + " from " + source + " to " + target);
+    public List<String> getMoves() {
+        return moves;
+    }
+
+    // Method to get the first move
+    public String getFirstMove() {
+        if (!moves.isEmpty()) {
+            return moves.get(0);
+        } else {
+            // Return null or a default message indicating no moves are available
+            return "No moves available";
+        }
+    }
+
+    // Method to get the next move and increment the move index
+    public String getNextMove() {
+        if (currentMoveIndex < moves.size()) {
+            String move = moves.get(currentMoveIndex);
+            currentMoveIndex++; // Move to the next index
+            return move;
+        } else {
+            return "No more moves available"; // When all moves have been shown
+        }
     }
 
     // maybe a method that just figures out the next move only?
