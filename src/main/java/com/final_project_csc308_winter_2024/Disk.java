@@ -17,6 +17,11 @@ public class Disk{
         this.weight = weight;
     }
 
+    @Override
+    public String toString() {
+        return "Disk #" + weight;
+    }
+
     public int getWeight() {
         return weight;
     }

@@ -6,6 +6,7 @@ import java.awt.*;
 public class Repository extends PropertyChangeSupport {
 
     private static Repository instance = null;
+    private Solver solver; // solver stuff
     private int counter = 0;
     private Tower[] towers = new Tower[3];
     private int[] nextStep = new int[3]; // move disk # from tower # to tower #
@@ -15,6 +16,7 @@ public class Repository extends PropertyChangeSupport {
     private Repository() {
         super(new Object());
         initializeGame();
+        this.solver = new Solver(this); // Initialize the solver here
     }
 
     public static Repository getInstance() {
@@ -55,6 +57,12 @@ public class Repository extends PropertyChangeSupport {
         gameOver = 0;
     }
 
+    public void solveGame() {
+        // Re-use the same solver instance to solve the game
+        solver.getMoves().clear(); // Clear previous moves
+        solver.hanoi(towers[0].getID(), towers[2].getID(), towers[1].getID(), towers[0].getDisks().size());
+    }
+
     public void changeBestTime(long time) {
         if (bestTime == 0 || time < bestTime) {
             bestTime = time;
@@ -80,6 +88,10 @@ public class Repository extends PropertyChangeSupport {
 
     public void setBestTime(long newTime) {
         bestTime = newTime;
+    }
+
+    public Solver getSolver() { // Getter for the solver
+        return solver;
     }
 
     public String formatElapsedTime(long elapsedTime) {
