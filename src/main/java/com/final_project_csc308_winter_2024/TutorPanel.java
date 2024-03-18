@@ -2,12 +2,16 @@ package com.final_project_csc308_winter_2024;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class TutorPanel extends JPanel {
+    private boolean isImageFlipped = false; // Flag to track the state of the image
+
     @Override
     public void repaint() {
         super.repaint();
@@ -29,14 +33,27 @@ public class TutorPanel extends JPanel {
         this.tutor = new Tutor(); // Initialize the tutor once here
         // Add a PropertyChangeListener to listen for changes in gameOver property
         Repository.getInstance().addPropertyChangeListener("gameOver", new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 int newValue = (int) evt.getNewValue();
                 if (newValue == 1) {
-                    tutor.setMessage("Congratulations! You've won!");
-                    Image newImage = loadImage("src/main/resources/javierwin.png"); // Load the new image
-                    tutor.setTutorImage(newImage); // Set the new image for the tutor
-                    repaint();
+                    Timer timer = new Timer(500, new ActionListener() { // Adjust the interval as needed
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            if (isImageFlipped) {
+                                Image newImage = loadImage("src/main/resources/javierwin.png"); // Load the new image
+                                tutor.setTutorImage(newImage); // Set the new image for the tutor
+                                isImageFlipped = false; // Toggle the flag
+                            } else {
+                                Image newImage = loadImage("src/main/resources/javierwin2.png"); // Load the alternate image
+                                tutor.setTutorImage(newImage); // Set the alternate image for the tutor
+                                isImageFlipped = true; // Toggle the flag
+                            }
+                            repaint();
+                        }
+                    });
+                    timer.start(); // Start the timer
                 }
                 if (newValue == 0) {
                     tutor.setMessage("I'm Javier, click on me if you need any assistance!");
@@ -48,6 +65,8 @@ public class TutorPanel extends JPanel {
                 }
             }
         });
+
+
         //initial tutor message
         tutor.setMessage("I'm Javier, click on me if you need any assistance!");
         Repository.getInstance().solveGame(); // game is already pre solve to create a solutions list
