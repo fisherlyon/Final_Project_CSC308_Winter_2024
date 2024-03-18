@@ -40,7 +40,7 @@ public class Solver {
             currentMoveIndex++; // Move to the next index
             return move;
         } else {
-            return "No more moves available"; // When all moves have been shown
+            return "Congratulations, you completed the towers!"; // When all moves have been shown
         }
     }
 

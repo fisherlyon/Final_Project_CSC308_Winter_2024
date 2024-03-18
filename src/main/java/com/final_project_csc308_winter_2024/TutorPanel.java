@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class TutorPanel extends JPanel {
     @Override
@@ -21,10 +23,19 @@ public class TutorPanel extends JPanel {
     //DU Tran stuff to click the tutor for help
     private Tutor tutor;
     private final Rectangle tutorBounds = new Rectangle(400, 100, 350, 400);
-
     public TutorPanel() {
         this.tutor = new Tutor(); // Initialize the tutor once here
-
+        // Add a PropertyChangeListener to listen for changes in gameOver property
+        Repository.getInstance().addPropertyChangeListener("gameOver", new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                int newValue = (int) evt.getNewValue();
+                if (newValue == 1) {
+                    tutor.setMessage("Congratulations! You've won!");
+                    repaint();
+                }
+            }
+        });
         //initial tutor message
         tutor.setMessage("I'm Javier, click on me if you need any assistance!");
         Repository.getInstance().solveGame(); // game is already pre solve to create a solutions list
