@@ -50,7 +50,7 @@ public class Tutor{
         this.message = message;
     }
 
-    //method to set image for win screen
+    //method to set image for win screen reset works
     public void setTutorImage(Image image) {
         this.tutorImage = image;
     }

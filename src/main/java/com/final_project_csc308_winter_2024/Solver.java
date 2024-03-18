@@ -44,7 +44,7 @@ public class Solver {
         }
     }
     public void resetMoves() {
-        currentMoveIndex = 0; // Reset the current move index to 0
+        currentMoveIndex = 0; // Reset the current move index to 0, reset works
     }
     // maybe a method that just figures out the next move only?
 }

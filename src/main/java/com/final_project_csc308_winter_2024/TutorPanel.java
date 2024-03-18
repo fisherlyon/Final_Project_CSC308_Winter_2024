@@ -20,7 +20,7 @@ public class TutorPanel extends JPanel {
         tutor.draw(g);
     }
 
-    //DU Tran stuff to click the tutor for help
+    //DU Tran stuff to click the tutor for help, reset works
     private Tutor tutor;
     private final Rectangle tutorBounds = new Rectangle(400, 100, 350, 400);
     public TutorPanel() {
