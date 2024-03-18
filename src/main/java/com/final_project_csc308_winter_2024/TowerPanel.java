@@ -16,12 +16,12 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
         initializeCursors();
         addMouseListener(this);
         addMouseMotionListener(this);
+        Repository.getInstance().addPropertyChangeListener(this);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         repaint();
-
     }
 
     @Override

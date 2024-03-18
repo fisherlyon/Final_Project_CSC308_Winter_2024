@@ -80,6 +80,13 @@ public class TimeTrialPanel extends JPanel implements PropertyChangeListener {
 
         if (evt.getPropertyName().equals("counter")) {
             int counter = (int) evt.getNewValue();
+            if (counter == 0) {
+                timeTrial.setElapsedTime(0);
+            }
+        }
+
+        if (evt.getPropertyName().equals("counter")) {
+            int counter = (int) evt.getNewValue();
             if (counter == 1) {
                 timeTrial.restart();
             }

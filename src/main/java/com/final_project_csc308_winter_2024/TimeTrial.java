@@ -69,6 +69,15 @@ public class TimeTrial {
     }
 
     /**
+     * Sets the elapsed time to a desired quantity.
+     * 
+     * @param time
+     */
+    public void setElapsedTime(long time) {
+        this.elapsedTime = time;
+    }
+
+    /**
      * Formats the elapsed time as a string in the format "mm:ss.SSS" (minutes:seconds.milliseconds).
      *
      * @return The formatted elapsed time string.

@@ -55,6 +55,10 @@ public class Repository extends PropertyChangeSupport {
     public void restart() {
         initializeGame();
         gameOver = 0;
+        counter = 0;
+        firePropertyChange("towers", null, towers);
+        firePropertyChange("gameOver", null, gameOver);
+        firePropertyChange("counter", null, counter);
     }
 
     public void solveGame() {
