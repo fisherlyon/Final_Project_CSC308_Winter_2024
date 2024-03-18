@@ -15,8 +15,8 @@ public class TutorPanel extends JPanel {
     Image background;
     @Override
     public void paintComponent(Graphics g) {
-        g.drawImage(background, 0, 0, null);
         super.paintComponent(g);
+        g.drawImage(background, 0, 0, null);
         // Use the existing 'tutor' instance instead of creating a new one.
         tutor.draw(g);
     }
