@@ -49,5 +49,10 @@ public class Tutor{
     public void setMessage(String message) {
         this.message = message;
     }
+
+    //method to set image for win screen
+    public void setTutorImage(Image image) {
+        this.tutorImage = image;
+    }
     //End of Du's work
 }

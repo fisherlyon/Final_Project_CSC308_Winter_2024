@@ -43,6 +43,8 @@ public class Solver {
             return "Congratulations, you completed the towers!"; // When all moves have been shown
         }
     }
-
+    public void resetMoves() {
+        currentMoveIndex = 0; // Reset the current move index to 0
+    }
     // maybe a method that just figures out the next move only?
 }

@@ -32,6 +32,16 @@ public class TutorPanel extends JPanel {
                 int newValue = (int) evt.getNewValue();
                 if (newValue == 1) {
                     tutor.setMessage("Congratulations! You've won!");
+                    Image newImage = loadImage("src/main/resources/javierwin.png"); // Load the new image
+                    tutor.setTutorImage(newImage); // Set the new image for the tutor
+                    repaint();
+                }
+                if (newValue == 0) {
+                    tutor.setMessage("I'm Javier, click on me if you need any assistance!");
+                    Image newImage = loadImage("src/main/resources/tutor1.png"); // Load the new image
+                    tutor.setTutorImage(newImage); // Set the new image for the tutor
+                    Solver solver = Repository.getInstance().getSolver();
+                    solver.resetMoves(); // Reset the nextMoves list back to index 0
                     repaint();
                 }
             }
@@ -51,5 +61,10 @@ public class TutorPanel extends JPanel {
             }
         });
     //End of Du
+    }
+    // Method to load a new image
+    private Image loadImage(String imagePath) {
+        ImageIcon ii = new ImageIcon(imagePath);
+        return ii.getImage();
     }
 }
