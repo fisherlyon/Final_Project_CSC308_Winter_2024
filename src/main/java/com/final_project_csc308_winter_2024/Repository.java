@@ -16,7 +16,7 @@ public class Repository extends PropertyChangeSupport {
     private Repository() {
         super(new Object());
         initializeGame();
-        this.solver = new Solver(this); // Initialize the solver here
+        this.solver = new Solver(); // Initialize the solver here
     }
 
     public static Repository getInstance() {

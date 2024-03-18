@@ -24,8 +24,6 @@ public class TutorPanel extends JPanel {
 
     public TutorPanel() {
         this.tutor = new Tutor(); // Initialize the tutor once here
-        Repository repository = Repository.getInstance();
-        Solver solver = new Solver(repository); // Initialize solver with the current repository
 
         //initial tutor message
         tutor.setMessage("I'm Javier, click on me if you need any assistance!");
@@ -34,7 +32,7 @@ public class TutorPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (tutorBounds.contains(e.getPoint())) {
-                    Solver solver = repository.getSolver();
+                    Solver solver = Repository.getInstance().getSolver();
                     String nextMove = solver.getNextMove(); // Use getNextMove for sequential tips
                     tutor.setMessage(nextMove);
                     repaint();

@@ -1,6 +1,7 @@
 /**
  * TimeTrialPanel represents a JPanel that displays the current time and the best time achieved.
  * It listens for changes in the best time and updates the display accordingly.
+ * It also listens for when the game starts and when it ends, to start and stop the timer.
  */
 package com.final_project_csc308_winter_2024;
 
@@ -62,7 +63,10 @@ public class TimeTrialPanel extends JPanel implements PropertyChangeListener {
     }
 
     /**
-     * Invoked when a property change is detected. Updates the best time label when the best time changes.
+     * Invoked when a property change is detected. 
+     * Updates the best time label when the best time changes.
+     * Starts the timer when game starts.
+     * Stops the timer when game ends.
      *
      * @param evt The property change event.
      */

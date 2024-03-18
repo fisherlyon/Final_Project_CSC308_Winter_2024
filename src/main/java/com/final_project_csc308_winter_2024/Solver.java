@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Solver {
-    private Repository repository;
     private List<String> moves; // List to store move instructions
     private int currentMoveIndex = 0; //track the current move
 
-    public Solver(Repository repository) {
-        this.repository = repository;
+    public Solver() {
         this.moves = new ArrayList<>(); // Initialize the moves list
     }
 
