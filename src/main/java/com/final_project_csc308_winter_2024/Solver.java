@@ -14,7 +14,7 @@ public class Solver {
     public void hanoi(int from, int to, int buf, int nmv) {
         if (nmv > 0) {
             hanoi(from, buf, to, nmv-1);
-            moves.add("Move disk " + nmv + " from Tower " + from + " to Tower " + to);
+            moves.add("Move disk " + nmv + " from Tower " + (from + 1) + " to Tower " + (to + 1));
             hanoi(buf, to, from, nmv-1);
         }
     }
@@ -29,7 +29,7 @@ public class Solver {
             return moves.get(0);
         } else {
             // Return null or a default message indicating no moves are available
-            return "No moves available";
+            return "Congratulations, you completed the towers!";
         }
     }
 
