@@ -22,19 +22,24 @@ public class TimeTrialPanel extends JPanel implements PropertyChangeListener {
      * @param timeTrial The TimeTrial instance to display and monitor for changes.
      */
     public TimeTrialPanel(TimeTrial timeTrial) {
+
         this.timeTrial = timeTrial;
         setLayout(new GridLayout(2, 1));
 
         JPanel curTimePanel = new JPanel();
         timeLabel = new JLabel("Time: 00:00.000");
         timeLabel.setFont(new Font("Monaco", Font.BOLD, 20));
+        timeLabel.setForeground(Color.WHITE);
         curTimePanel.setLayout(new GridBagLayout());
+        curTimePanel.setBackground(Color.decode("0x508991"));
         curTimePanel.add(timeLabel);
 
         JPanel bestTimePanel = new JPanel();
         bestTimeLabel = new JLabel("Best Time: 00:00.000");
         bestTimeLabel.setFont(new Font("Monaco", Font.BOLD, 20));
+        bestTimeLabel.setForeground(Color.WHITE);
         bestTimePanel.setLayout(new GridBagLayout());
+        bestTimePanel.setBackground(Color.decode("0x004346"));
         bestTimePanel.add(bestTimeLabel);
 
         GridBagConstraints constraints = new GridBagConstraints();
