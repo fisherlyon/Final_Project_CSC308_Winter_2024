@@ -38,6 +38,7 @@ public class TutorPanel extends JPanel {
             public void propertyChange(PropertyChangeEvent evt) {
                 int newValue = (int) evt.getNewValue();
                 if (newValue == 1) {
+                    tutor.setMessage("Congratulations, you win!");
                     Timer timer = new Timer(500, new ActionListener() { // Adjust the interval as needed
                         @Override
                         public void actionPerformed(ActionEvent e) {
