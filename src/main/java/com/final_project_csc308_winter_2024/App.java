@@ -16,14 +16,13 @@ public class App extends JFrame implements ActionListener {
         t.start();
 
         setTitle("Tower of Hanoi");
-        setLocation(100, 100);
+        setLocation(0, 0);
 
         // Create TowerPanel and TutorPanel
         TowerPanel towerPanel = new TowerPanel();
         TutorPanel tutorPanel = new TutorPanel();
         JPanel rightPanel = new JPanel();
 
-        tutorPanel.setBackground(Color.RED);
         towerPanel.setBackground(Color.WHITE);
 
         rightPanel.setLayout(new GridLayout(2, 1)); // 1 row, 2 columns
@@ -43,7 +42,7 @@ public class App extends JFrame implements ActionListener {
     public static void main( String[] args ) {
         App main = new App();
         main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        main.setSize(800, 600);
+        main.setSize(1920, 1080);
         main.setVisible(true);
     }
 

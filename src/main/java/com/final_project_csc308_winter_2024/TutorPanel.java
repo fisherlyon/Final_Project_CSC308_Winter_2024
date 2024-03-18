@@ -12,9 +12,10 @@ public class TutorPanel extends JPanel {
     public void repaint() {
         super.repaint();
     }
-
+    Image background;
     @Override
     public void paintComponent(Graphics g) {
+        g.drawImage(background, 0, 0, null);
         super.paintComponent(g);
         // Use the existing 'tutor' instance instead of creating a new one.
         tutor.draw(g);
@@ -24,6 +25,7 @@ public class TutorPanel extends JPanel {
     private Tutor tutor;
     private final Rectangle tutorBounds = new Rectangle(400, 100, 350, 400);
     public TutorPanel() {
+        background = Toolkit.getDefaultToolkit().createImage("src/main/resources/gradient1.jpg");
         this.tutor = new Tutor(); // Initialize the tutor once here
         // Add a PropertyChangeListener to listen for changes in gameOver property
         Repository.getInstance().addPropertyChangeListener("gameOver", new PropertyChangeListener() {

@@ -13,6 +13,7 @@ public class Repository extends PropertyChangeSupport {
     private long bestTime = 0;
     private int gameOver = 0;
 
+    private int level = -1;
     private Repository() {
         super(new Object());
         initializeGame();
@@ -27,17 +28,56 @@ public class Repository extends PropertyChangeSupport {
     }
 
     private void initializeGame() {
-        towers[0] = new Tower(200, 300, 20, 200, 0);
-        towers[1] = new Tower(400, 300, 20, 200, 1);
-        towers[2] = new Tower(600, 300, 20, 200, 2);
+        if (level == -1){
+            LevelLoader levelLoader = new LevelLoader();
+            int level = levelLoader.selectLevel();
+            setLevel(level);
+        }
+        if (level == 0){
+            towers[0] = new Tower(200, 300, 20, 200, 0);
+            towers[1] = new Tower(400, 300, 20, 200, 1);
+            towers[2] = new Tower(600, 300, 20, 200, 2);
 
-        Disk disk = new Disk(100, 40, Color.BLUE, 3);
-        Disk disk1 = new Disk(80, 40, Color.GREEN, 2);
-        Disk disk2 = new Disk(60, 40, Color.YELLOW, 1);
+            Disk disk = new Disk(100, 40, Color.BLUE, 3);
+            Disk disk1 = new Disk(80, 40, Color.GREEN, 2);
+            Disk disk2 = new Disk(60, 40, Color.YELLOW, 1);
 
-        towers[0].addDisk(disk);
-        towers[0].addDisk(disk1);
-        towers[0].addDisk(disk2);
+            towers[0].addDisk(disk);
+            towers[0].addDisk(disk1);
+            towers[0].addDisk(disk2);
+        }
+        if (level == 1){
+            towers[0] = new Tower(200, 300, 20, 200, 0);
+            towers[1] = new Tower(400, 300, 20, 200, 1);
+            towers[2] = new Tower(600, 300, 20, 200, 2);
+
+            Disk disk = new Disk(100, 40, Color.BLUE, 4);
+            Disk disk1 = new Disk(80, 40, Color.GREEN, 3);
+            Disk disk2 = new Disk(60, 40, Color.YELLOW, 2);
+            Disk disk3 = new Disk(40, 40, Color.BLACK, 1);
+
+            towers[0].addDisk(disk);
+            towers[0].addDisk(disk1);
+            towers[0].addDisk(disk2);
+            towers[0].addDisk(disk3);
+        }
+        if (level == 2){
+            towers[0] = new Tower(200, 300, 20, 200, 0);
+            towers[1] = new Tower(400, 300, 20, 200, 1);
+            towers[2] = new Tower(600, 300, 20, 200, 2);
+
+            Disk disk = new Disk(100, 40, Color.BLUE, 5);
+            Disk disk1 = new Disk(80, 40, Color.GREEN, 4);
+            Disk disk2 = new Disk(60, 40, Color.YELLOW, 3);
+            Disk disk3 = new Disk(40, 40, Color.BLACK, 2);
+            Disk disk4 = new Disk(20, 40, Color.CYAN, 1);
+
+            towers[0].addDisk(disk);
+            towers[0].addDisk(disk1);
+            towers[0].addDisk(disk2);
+            towers[0].addDisk(disk3);
+            towers[0].addDisk(disk4);
+        }
     }
 
     public void move(int old_tower, int new_tower) {
@@ -53,6 +93,7 @@ public class Repository extends PropertyChangeSupport {
     }
 
     public void restart() {
+        this.level = -1;
         initializeGame();
         gameOver = 0;
         counter = 0;
@@ -76,6 +117,10 @@ public class Repository extends PropertyChangeSupport {
 
     public int getCount() {
         return counter;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public Tower[] getTowers() {
