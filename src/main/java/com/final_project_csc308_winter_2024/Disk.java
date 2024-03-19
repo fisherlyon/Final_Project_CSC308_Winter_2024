@@ -2,9 +2,12 @@ package com.final_project_csc308_winter_2024;
 
 import java.awt.*;
 
-public class Disk{
+public class Disk {
+    public static final int DEFAULT_HEIGHT = 20;
     private int width;
     private int height;
+    private int originalWidth;
+    private int originalHeight;
     private Color color;
     private Tower tower;
     private int x, y;
@@ -13,6 +16,8 @@ public class Disk{
     public Disk(int width, int height, Color color, int weight) {
         this.width = width;
         this.height = height;
+        this.originalWidth = width;
+        this.originalHeight = height;
         this.color = color;
         this.weight = weight;
     }
@@ -72,11 +77,11 @@ public class Disk{
         if (tower != null) {
             int towerX = tower.getX();
             int towerY = tower.getY();
-            int diskY = towerY - height / 2 - tower.getDisks().indexOf(this) * (height / tower.getDisks().size());
-            x = towerX - width / 2;
+            int diskY = towerY - originalHeight / 2 - tower.getDisks().indexOf(this) * (originalHeight + 2); // Adjust for spacing between disks
+            x = towerX - originalWidth / 2;
             y = diskY;
             g.setColor(color);
-            g.fillRect(x, y, width, height / tower.getDisks().size());
+            g.fillRect(x, y, originalWidth, originalHeight); // Use originalWidth and originalHeight for consistent disk size
         }
     }
 
@@ -85,3 +90,4 @@ public class Disk{
                 y >= getY() && y <= (getY() + height);
     }
 }
+

@@ -36,13 +36,9 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
                 }
             }
         }
-        // Draw the disk that is currently being dragged at its own x, y coordinates
+        // Draw the disk that is currently being dragged at its original size and position
         if (draggingDisk != null) {
-            g.setColor(draggingDisk.getColor());
-            g.fillRect(draggingDisk.getX() - draggingDisk.getWidth() / 2,
-                    draggingDisk.getY() - draggingDisk.getHeight() / 2,
-                    draggingDisk.getWidth(),
-                    draggingDisk.getHeight());
+            draggingDisk.draw(g);
         }
     }
 
@@ -111,13 +107,14 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
             Tower nearestTower = findNearestTower(release.getX());
             if (nearestTower.canAddDisk(draggingDisk)) {
                 Repository.getInstance().move(draggingDisk.getTower().getID(), nearestTower.getID());
-            } 
+            }
         }
         dragging = false;
         draggingDisk = null; // Clear the reference to the dragging disk
         setCursor(openHandCursor);
         repaint(); // Repaint to show the disk in its new position
     }
+
 
     // MouseMotionListener methods
     @Override
