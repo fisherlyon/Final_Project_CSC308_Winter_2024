@@ -11,12 +11,14 @@ import java.beans.PropertyChangeListener;
 
 public class TutorPanel extends JPanel {
     private boolean isImageFlipped = false; // Flag to track the state of the image
+    private Timer timer; // Timer for flipping images
+    private Image background;
 
     @Override
     public void repaint() {
         super.repaint();
     }
-    Image background;
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -28,36 +30,22 @@ public class TutorPanel extends JPanel {
     //DU Tran stuff to click the tutor for help, reset works
     private Tutor tutor;
     private final Rectangle tutorBounds = new Rectangle(400, 100, 350, 400);
+
     public TutorPanel() {
         background = Toolkit.getDefaultToolkit().createImage("src/main/resources/gradient1.jpg");
         this.tutor = new Tutor(); // Initialize the tutor once here
         // Add a PropertyChangeListener to listen for changes in gameOver property
         Repository.getInstance().addPropertyChangeListener("gameOver", new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 int newValue = (int) evt.getNewValue();
                 if (newValue == 1) {
                     tutor.setMessage("Congratulations, you win!");
-                    Timer timer = new Timer(500, new ActionListener() { // Adjust the interval as needed
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (isImageFlipped) {
-                                Image newImage = loadImage("src/main/resources/javierwin.png"); // Load the new image
-                                tutor.setTutorImage(newImage); // Set the new image for the tutor
-                                isImageFlipped = false; // Toggle the flag
-                            } else {
-                                Image newImage = loadImage("src/main/resources/javierwin2.png"); // Load the alternate image
-                                tutor.setTutorImage(newImage); // Set the alternate image for the tutor
-                                isImageFlipped = true; // Toggle the flag
-                            }
-                            repaint();
-                        }
-                    });
-                    timer.start(); // Start the timer
+                    startFlippingTimer(); // Start the timer for flipping images
                 }
                 if (newValue == 0) {
                     tutor.setMessage("I'm Javier, click on me if you need any assistance!");
+                    stopFlippingTimer(); // Stop the timer for flipping images
                     Image newImage = loadImage("src/main/resources/tutor1.png"); // Load the new image
                     tutor.setTutorImage(newImage); // Set the new image for the tutor
                     Solver solver = Repository.getInstance().getSolver();
@@ -66,7 +54,6 @@ public class TutorPanel extends JPanel {
                 }
             }
         });
-
 
         //initial tutor message
         tutor.setMessage("I'm Javier, click on me if you need any assistance!");
@@ -82,11 +69,46 @@ public class TutorPanel extends JPanel {
                 }
             }
         });
-    //End of Du
     }
+
     // Method to load a new image
     private Image loadImage(String imagePath) {
         ImageIcon ii = new ImageIcon(imagePath);
         return ii.getImage();
+    }
+
+    // Method to start the timer for flipping images
+    private void startFlippingTimer() {
+        if (timer == null) {
+            timer = new Timer(500, new ActionListener() { // Adjust the interval as needed
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    flipImage();
+                }
+            });
+            timer.start(); // Start the timer
+        }
+    }
+
+    // Method to stop the timer for flipping images
+    private void stopFlippingTimer() {
+        if (timer != null) {
+            timer.stop(); // Stop the timer
+            timer = null; // Set the timer to null
+        }
+    }
+
+    // Method to flip the image
+    private void flipImage() {
+        if (isImageFlipped) {
+            Image newImage = loadImage("src/main/resources/javierwin.png"); // Load the new image
+            tutor.setTutorImage(newImage); // Set the new image for the tutor
+            isImageFlipped = false; // Toggle the flag
+        } else {
+            Image newImage = loadImage("src/main/resources/javierwin2.png"); // Load the alternate image
+            tutor.setTutorImage(newImage); // Set the alternate image for the tutor
+            isImageFlipped = true; // Toggle the flag
+        }
+        repaint();
     }
 }
