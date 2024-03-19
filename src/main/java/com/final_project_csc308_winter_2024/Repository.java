@@ -28,6 +28,9 @@ public class Repository extends PropertyChangeSupport {
     }
 
     private void initializeGame() {
+        int DISK_HEIGHT = 15;
+        int DISK_WIDTH = 20;
+
         if (level == -1){
             LevelLoader levelLoader = new LevelLoader();
             int level = levelLoader.selectLevel();
@@ -38,9 +41,9 @@ public class Repository extends PropertyChangeSupport {
             towers[1] = new Tower(400, 300, 20, 200, 1);
             towers[2] = new Tower(600, 300, 20, 200, 2);
 
-            Disk disk = new Disk(100, 40, Color.BLUE, 3);
-            Disk disk1 = new Disk(80, 40, Color.GREEN, 2);
-            Disk disk2 = new Disk(60, 40, Color.YELLOW, 1);
+            Disk disk = new Disk(DISK_WIDTH*6, DISK_HEIGHT, Color.BLUE, 3);
+            Disk disk1 = new Disk(DISK_WIDTH*5, DISK_HEIGHT, Color.GREEN, 2);
+            Disk disk2 = new Disk(DISK_WIDTH*4, DISK_HEIGHT, Color.YELLOW, 1);
 
             towers[0].addDisk(disk);
             towers[0].addDisk(disk1);
@@ -51,10 +54,10 @@ public class Repository extends PropertyChangeSupport {
             towers[1] = new Tower(400, 300, 20, 200, 1);
             towers[2] = new Tower(600, 300, 20, 200, 2);
 
-            Disk disk = new Disk(100, 40, Color.BLUE, 4);
-            Disk disk1 = new Disk(80, 40, Color.GREEN, 3);
-            Disk disk2 = new Disk(60, 40, Color.YELLOW, 2);
-            Disk disk3 = new Disk(40, 40, Color.BLACK, 1);
+            Disk disk = new Disk(DISK_WIDTH*6, DISK_HEIGHT, Color.BLUE, 4);
+            Disk disk1 = new Disk(DISK_WIDTH*5, DISK_HEIGHT, Color.GREEN, 3);
+            Disk disk2 = new Disk(DISK_WIDTH*4, DISK_HEIGHT, Color.YELLOW, 2);
+            Disk disk3 = new Disk(DISK_WIDTH*3, DISK_HEIGHT, Color.ORANGE, 1);
 
             towers[0].addDisk(disk);
             towers[0].addDisk(disk1);
@@ -66,11 +69,11 @@ public class Repository extends PropertyChangeSupport {
             towers[1] = new Tower(400, 300, 20, 200, 1);
             towers[2] = new Tower(600, 300, 20, 200, 2);
 
-            Disk disk = new Disk(100, 40, Color.BLUE, 5);
-            Disk disk1 = new Disk(80, 40, Color.GREEN, 4);
-            Disk disk2 = new Disk(60, 40, Color.YELLOW, 3);
-            Disk disk3 = new Disk(40, 40, Color.BLACK, 2);
-            Disk disk4 = new Disk(20, 40, Color.CYAN, 1);
+            Disk disk = new Disk(DISK_WIDTH*6, DISK_HEIGHT, Color.BLUE, 5);
+            Disk disk1 = new Disk(DISK_WIDTH*5, DISK_HEIGHT, Color.GREEN, 4);
+            Disk disk2 = new Disk(DISK_WIDTH*4, DISK_HEIGHT, Color.YELLOW, 3);
+            Disk disk3 = new Disk(DISK_WIDTH*3, DISK_HEIGHT, Color.ORANGE, 2);
+            Disk disk4 = new Disk(DISK_WIDTH*2, DISK_HEIGHT, Color.CYAN, 1);
 
             towers[0].addDisk(disk);
             towers[0].addDisk(disk1);
