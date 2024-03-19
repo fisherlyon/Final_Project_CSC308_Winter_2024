@@ -49,7 +49,9 @@ public class TutorPanel extends JPanel {
                     Image newImage = loadImage("src/main/resources/tutor1.png"); // Load the new image
                     tutor.setTutorImage(newImage); // Set the new image for the tutor
                     Solver solver = Repository.getInstance().getSolver();
+                    Repository repository = Repository.getInstance();
                     solver.resetMoves(); // Reset the nextMoves list back to index 0
+                    repository.solveGame(); // Call solveGame() from the Repository instance
                     repaint();
                 }
             }

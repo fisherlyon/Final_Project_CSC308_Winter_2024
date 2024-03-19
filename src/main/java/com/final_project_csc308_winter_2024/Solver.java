@@ -23,15 +23,6 @@ public class Solver {
         return moves;
     }
 
-    // Method to get the first move
-    public String getFirstMove() {
-        if (!moves.isEmpty()) {
-            return moves.get(0);
-        } else {
-            // Return null or a default message indicating no moves are available
-            return "Congratulations, you completed the towers!";
-        }
-    }
 
     // Method to get the next move and increment the move index
     public String getNextMove() {
