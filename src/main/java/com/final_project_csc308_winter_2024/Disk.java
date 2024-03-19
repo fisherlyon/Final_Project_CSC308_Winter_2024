@@ -86,8 +86,10 @@ public class Disk {
     }
 
     public boolean contains(int x, int y) {
-        return x >= getX() && x <= (getX() + width) &&
-                y >= getY() && y <= (getY() + height);
+        int dx = x - (this.x + width / 2);
+        int dy = y - (this.y + height / 2);
+        int distanceSquared = dx * dx + dy * dy;
+        return distanceSquared <= (width / 2) * (width / 2);
     }
 }
 
