@@ -1,6 +1,7 @@
 /**
  * TimeTrialPanel represents a JPanel that displays the current time and the best time achieved.
  * It listens for changes in the best time and updates the display accordingly.
+ * It also listens for when the game starts and when it ends, to start and stop the timer.
  */
 package com.final_project_csc308_winter_2024;
 
@@ -21,19 +22,24 @@ public class TimeTrialPanel extends JPanel implements PropertyChangeListener {
      * @param timeTrial The TimeTrial instance to display and monitor for changes.
      */
     public TimeTrialPanel(TimeTrial timeTrial) {
+
         this.timeTrial = timeTrial;
         setLayout(new GridLayout(2, 1));
 
         JPanel curTimePanel = new JPanel();
         timeLabel = new JLabel("Time: 00:00.000");
         timeLabel.setFont(new Font("Monaco", Font.BOLD, 20));
+        timeLabel.setForeground(Color.WHITE);
         curTimePanel.setLayout(new GridBagLayout());
+        curTimePanel.setBackground(Color.decode("0x508991"));
         curTimePanel.add(timeLabel);
 
         JPanel bestTimePanel = new JPanel();
         bestTimeLabel = new JLabel("Best Time: 00:00.000");
         bestTimeLabel.setFont(new Font("Monaco", Font.BOLD, 20));
+        bestTimeLabel.setForeground(Color.WHITE);
         bestTimePanel.setLayout(new GridBagLayout());
+        bestTimePanel.setBackground(Color.decode("0x004346"));
         bestTimePanel.add(bestTimeLabel);
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -62,7 +68,10 @@ public class TimeTrialPanel extends JPanel implements PropertyChangeListener {
     }
 
     /**
-     * Invoked when a property change is detected. Updates the best time label when the best time changes.
+     * Invoked when a property change is detected. 
+     * Updates the best time label when the best time changes.
+     * Starts the timer when game starts.
+     * Stops the timer when game ends.
      *
      * @param evt The property change event.
      */
@@ -72,6 +81,13 @@ public class TimeTrialPanel extends JPanel implements PropertyChangeListener {
         if (evt.getPropertyName().equals("bestTime")) {
             long bestTime = (long) evt.getNewValue();
             bestTimeLabel.setText("Best Time: " + Repository.getInstance().formatElapsedTime(bestTime));
+        }
+
+        if (evt.getPropertyName().equals("counter")) {
+            int counter = (int) evt.getNewValue();
+            if (counter == 0) {
+                timeTrial.setElapsedTime(0);
+            }
         }
 
         if (evt.getPropertyName().equals("counter")) {

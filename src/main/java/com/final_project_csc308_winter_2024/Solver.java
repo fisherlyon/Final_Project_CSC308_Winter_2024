@@ -4,19 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Solver {
-    private Repository repository;
     private List<String> moves; // List to store move instructions
     private int currentMoveIndex = 0; //track the current move
 
-    public Solver(Repository repository) {
-        this.repository = repository;
+    public Solver() {
         this.moves = new ArrayList<>(); // Initialize the moves list
     }
 
     public void hanoi(int from, int to, int buf, int nmv) {
         if (nmv > 0) {
             hanoi(from, buf, to, nmv-1);
-            moves.add("Move disk " + nmv + " from Tower " + from + " to Tower " + to);
+            moves.add("Move disk " + nmv + " from Tower " + (from + 1) + " to Tower " + (to + 1));
             hanoi(buf, to, from, nmv-1);
         }
     }
@@ -25,15 +23,6 @@ public class Solver {
         return moves;
     }
 
-    // Method to get the first move
-    public String getFirstMove() {
-        if (!moves.isEmpty()) {
-            return moves.get(0);
-        } else {
-            // Return null or a default message indicating no moves are available
-            return "No moves available";
-        }
-    }
 
     // Method to get the next move and increment the move index
     public String getNextMove() {
@@ -42,9 +31,11 @@ public class Solver {
             currentMoveIndex++; // Move to the next index
             return move;
         } else {
-            return "No more moves available"; // When all moves have been shown
+            return "Congratulations, you completed the towers!"; // When all moves have been shown
         }
     }
-
+    public void resetMoves() {
+        currentMoveIndex = 0; // Reset the current move index to 0, reset works
+    }
     // maybe a method that just figures out the next move only?
 }

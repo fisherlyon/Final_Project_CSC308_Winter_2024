@@ -72,7 +72,6 @@ public class Tower {
         // Draw tower
         g.setColor(TOWER_COLOR);
         g.fillRect(x - width / 2, y - height / 2, width, height);
-
         // Draw disks
         for (Disk disk : disks) {
             if (disk != TowerPanel.draggingDisk) {

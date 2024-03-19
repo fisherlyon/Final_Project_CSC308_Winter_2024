@@ -3,30 +3,31 @@ package com.final_project_csc308_winter_2024;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 public class TowerPanel extends JPanel implements PropertyChangeListener, MouseListener, MouseMotionListener {
 
+    private Image background;
     public TowerPanel(){
         initializeCursors();
         addMouseListener(this);
         addMouseMotionListener(this);
-    }
+        Repository.getInstance().addPropertyChangeListener(this);
+        background = Toolkit.getDefaultToolkit().createImage("src/main/resources/gradient1.jpg");
 
+    }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         repaint();
-
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(background, 0, 0, null);
         Tower[] towers = Repository.getInstance().getTowers();
         for (Tower tower : towers) {
             tower.draw(g); // Draw the towers
@@ -36,7 +37,7 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
                 }
             }
         }
-        // Draw the disk that is currently being dragged at its own x, y coordinates
+        // Draw the disk that is currently being dragged at its original size and position
         if (draggingDisk != null) {
             g.setColor(draggingDisk.getColor());
             g.fillRect(draggingDisk.getX() - draggingDisk.getWidth() / 2,
@@ -44,6 +45,15 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
                     draggingDisk.getWidth(),
                     draggingDisk.getHeight());
         }
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(new Font("Arial", Font.BOLD, 35));
+        FontMetrics fm = g2d.getFontMetrics();
+        String message = "MOVES: " + Repository.getInstance().getCount();
+        int textWidth = fm.stringWidth(message);
+        int x = 200 + (400 - textWidth) / 2;
+        int y = 400 + ((100 - fm.getHeight()) / 2) + fm.getAscent();
+        g2d.drawString(message, x, y);
     }
 
     public static Disk draggingDisk;
@@ -111,13 +121,14 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
             Tower nearestTower = findNearestTower(release.getX());
             if (nearestTower.canAddDisk(draggingDisk)) {
                 Repository.getInstance().move(draggingDisk.getTower().getID(), nearestTower.getID());
-            } 
+            }
         }
         dragging = false;
         draggingDisk = null; // Clear the reference to the dragging disk
         setCursor(openHandCursor);
         repaint(); // Repaint to show the disk in its new position
     }
+
 
     // MouseMotionListener methods
     @Override
