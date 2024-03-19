@@ -38,8 +38,21 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
         }
         // Draw the disk that is currently being dragged at its original size and position
         if (draggingDisk != null) {
-            draggingDisk.draw(g);
+            g.setColor(draggingDisk.getColor());
+            g.fillRect(draggingDisk.getX() - draggingDisk.getWidth() / 2,
+                    draggingDisk.getY() - draggingDisk.getHeight() / 2,
+                    draggingDisk.getWidth(),
+                    draggingDisk.getHeight());
         }
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(new Font("Arial", Font.BOLD, 35));
+        FontMetrics fm = g2d.getFontMetrics();
+        String message = "MOVES: " + Repository.getInstance().getCount();
+        int textWidth = fm.stringWidth(message);
+        int x = 200 + (400 - textWidth) / 2;
+        int y = 400 + ((100 - fm.getHeight()) / 2) + fm.getAscent();
+        g2d.drawString(message, x, y);
     }
 
     public static Disk draggingDisk;
