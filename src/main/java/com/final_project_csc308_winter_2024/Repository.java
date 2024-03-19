@@ -13,6 +13,8 @@ public class Repository extends PropertyChangeSupport {
     private long bestTime = 0;
     private int gameOver = 0;
 
+    private LevelLoader levelLoader = new LevelLoader();
+
     private int level = -1;
     private Repository() {
         super(new Object());
@@ -32,9 +34,8 @@ public class Repository extends PropertyChangeSupport {
         int DISK_WIDTH = 20;
 
         if (level == -1){
-            LevelLoader levelLoader = new LevelLoader();
-            int level = levelLoader.selectLevel();
-            setLevel(level);
+            int revel = levelLoader.selectLevel();
+            this.level = revel;
         }
         if (level == 0){
             towers[0] = new Tower(200, 300, 20, 200, 0);
@@ -111,7 +112,6 @@ public class Repository extends PropertyChangeSupport {
     }
 
     public void restart() {
-        this.level = -1;
         initializeGame();
         gameOver = 0;
         counter = 0;
@@ -133,12 +133,16 @@ public class Repository extends PropertyChangeSupport {
         }
     }
 
+    public LevelLoader getLevelLoader(){
+        return levelLoader;
+    }
     public int getCount() {
         return counter;
     }
 
     public void setLevel(int level) {
         this.level = level;
+        restart();
     }
 
     public Tower[] getTowers() {

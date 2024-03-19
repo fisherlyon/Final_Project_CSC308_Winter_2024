@@ -8,7 +8,8 @@ import java.awt.event.ActionListener;
 public class App extends JFrame implements ActionListener {
 
     TimeTrialPanel timeTrialPanel = new TimeTrialPanel(new TimeTrial());
-
+    JComboBox<String> dropdown;
+    String[] levelOptions = {"3 Disks", "4 Disks", "5 Disks"};
     public App() {
         PlayMusic music = new PlayMusic("sad-piano-background.mp3");
 
@@ -23,8 +24,6 @@ public class App extends JFrame implements ActionListener {
         TutorPanel tutorPanel = new TutorPanel();
         JPanel rightPanel = new JPanel();
 
-        towerPanel.setBackground(Color.WHITE);
-
         rightPanel.setLayout(new GridLayout(2, 1)); // 1 row, 2 columns
         rightPanel.add(tutorPanel);
         rightPanel.add(timeTrialPanel);
@@ -33,6 +32,25 @@ public class App extends JFrame implements ActionListener {
         restartButton.addActionListener(this);
         restartButton.setFont(new Font("Monaco", Font.BOLD, 20));
         towerPanel.add(restartButton);
+        dropdown = new JComboBox<>(levelOptions);
+//        dropdown.setBounds(100,100, 50, 50);
+        dropdown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JComboBox<String> combo = (JComboBox<String>) e.getSource();
+                String selected = (String) combo.getSelectedItem();
+                if (selected.equals("3 Disks")) {
+                    Repository.getInstance().setLevel(0);
+                }
+                if (selected.equals("4 Disks")) {
+                    Repository.getInstance().setLevel(1);
+                }
+                if (selected.equals("5 Disks")) {
+                    Repository.getInstance().setLevel(2);
+                }
+            }
+        });
+        towerPanel.add(dropdown);
 
         setLayout(new GridLayout(1, 2));
         add(towerPanel);
