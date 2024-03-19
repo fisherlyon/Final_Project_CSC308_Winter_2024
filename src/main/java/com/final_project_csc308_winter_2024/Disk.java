@@ -12,6 +12,8 @@ public class Disk {
     private Tower tower;
     private int x, y;
     private int weight;
+    private Color stripeColor;
+    private int stripeWidth;
 
     public Disk(int width, int height, Color color, int weight) {
         this.width = width;
@@ -20,6 +22,14 @@ public class Disk {
         this.originalHeight = height;
         this.color = color;
         this.weight = weight;
+
+        // Initialize zebra stripe properties
+        this.stripeWidth = 1; // Default stripe width
+    }
+
+    public void setZebraStripes(Color stripeColor, int stripeWidth) {
+        this.stripeColor = stripeColor;
+        this.stripeWidth = stripeWidth;
     }
 
     @Override
@@ -82,6 +92,12 @@ public class Disk {
             y = diskY;
             g.setColor(color);
             g.fillRect(x, y, originalWidth, originalHeight); // Use originalWidth and originalHeight for consistent disk size
+
+            // Draw zebra stripes
+            for (int i = 0; i < height; i += stripeWidth) {
+                g.setColor(stripeColor);
+                g.fillRect(x, y + i, width, stripeWidth);
+            }
         }
     }
 
