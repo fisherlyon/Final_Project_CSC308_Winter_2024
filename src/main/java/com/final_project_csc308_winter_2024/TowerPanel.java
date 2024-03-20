@@ -12,11 +12,11 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
 
     private Image background;
     public TowerPanel(){
+        background = Toolkit.getDefaultToolkit().createImage("src/main/resources/gradient1.jpg");
         initializeCursors();
         addMouseListener(this);
         addMouseMotionListener(this);
         Repository.getInstance().addPropertyChangeListener(this);
-        background = Toolkit.getDefaultToolkit().createImage("src/main/resources/gradient1.jpg");
 
     }
     @Override
@@ -28,6 +28,7 @@ public class TowerPanel extends JPanel implements PropertyChangeListener, MouseL
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
+        repaint();
         Tower[] towers = Repository.getInstance().getTowers();
         for (Tower tower : towers) {
             tower.draw(g); // Draw the towers
